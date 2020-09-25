@@ -25,3 +25,21 @@ const galleryCollection = document.querySelector(`.js-gallery`);
 const galleryMarkup = createGlleryItemMarkup(galleryItems);
 
 galleryCollection.insertAdjacentHTML(`beforeend`, galleryMarkup);
+
+const galleryItemClick = document.querySelector(`.js-gallery`);
+galleryItemClick.addEventListener(`click`, openModal);
+function openModal(evt) {
+  evt.preventDefault();
+  if (evt.target.nodeName !== `IMG`) {
+    return;
+  }
+  const modalOpen = document.querySelector(`div.lightbox`);
+  modalOpen.classList.add(`is-open`);
+}
+
+const modalBtn = document.querySelector(`.lightbox__button`);
+modalBtn.addEventListener(`click`, closeModal);
+function closeModal(evt) {
+  const modalOpen = document.querySelector(`div.lightbox`);
+  modalOpen.classList.remove(`is-open`);
+}
