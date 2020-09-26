@@ -29,6 +29,7 @@ galleryCollection.insertAdjacentHTML(`beforeend`, galleryMarkup);
 const galleryItemClick = document.querySelector(`.js-gallery`);
 galleryItemClick.addEventListener(`click`, openModal);
 function openModal(evt) {
+  window.addEventListener(`keydown`, keyEscPress);
   evt.preventDefault();
   if (evt.target.nodeName !== `IMG`) {
     return;
@@ -42,4 +43,20 @@ modalBtn.addEventListener(`click`, closeModal);
 function closeModal(evt) {
   const modalOpen = document.querySelector(`div.lightbox`);
   modalOpen.classList.remove(`is-open`);
+  window.removeEventListener(`keydown`, keyEscPress);
+}
+
+const backdropClick = document.querySelector(`.lightbox__overlay`);
+backdropClick.addEventListener(`click`, onBackdropClick);
+function onBackdropClick(event) {
+  if (event.currentTarget === event.target) {
+    closeModal();
+  }
+}
+
+function keyEscPress(evt) {
+  console.log(evt.code);
+  if (evt.code === `Escape`) {
+    closeModal();
+  }
 }
